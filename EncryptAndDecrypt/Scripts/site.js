@@ -31,8 +31,10 @@ const decryptWithJavascript = () => {
 
 const encryptWithCsharp = () => {
     $.ajax({
-        type: "GET",
-        url: `/Home/Encrypt?encryptText=${$('#encrypt').val()}`,
+        type: 'POST',
+        url: `/Home/Encrypt`,
+        data: JSON.stringify({ text: $('#encrypt').val() }),
+        contentType: 'application/json',
         success: (data) => {
             $('#decrypt').val(data);
         },
@@ -44,8 +46,10 @@ const encryptWithCsharp = () => {
 
 const decryptWithCsharp = () => {
     $.ajax({
-        type: "GET",
-        url: `/Home/Decrypt?decryptText=${$('#decrypt').val()}`,
+        type: 'POST',
+        url: `/Home/Decrypt`,
+        data: JSON.stringify({ text: $('#decrypt').val() }),
+        contentType: 'application/json',
         success: (data) => {
             $('#encrypt').val(data);
         },

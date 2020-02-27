@@ -16,22 +16,24 @@ namespace EncryptAndDecrypt.Controllers
             return View();
         }
 
-        public string Encrypt(string encryptText)
+        [HttpPost]
+        public string Encrypt(Data data)
         {
             var keybytes = Encoding.UTF8.GetBytes("7061737323313233");
             var iv = Encoding.UTF8.GetBytes("7061737323313233");
 
-            var encryptStringToBytes = EncryptStringToBytes(encryptText, keybytes, iv);
+            var encryptStringToBytes = EncryptStringToBytes(data.Text, keybytes, iv);
             string base64String = Convert.ToBase64String(encryptStringToBytes, 0, encryptStringToBytes.Length);
             return base64String;
         }
 
-        public string Decrypt(string decryptText)
+        [HttpPost]
+        public string Decrypt(Data data)
         {
             var keybytes = Encoding.UTF8.GetBytes("7061737323313233");
             var iv = Encoding.UTF8.GetBytes("7061737323313233");
 
-            var encrypted = Convert.FromBase64String(decryptText);
+            var encrypted = Convert.FromBase64String(data.Text);
             var decriptedFromJavascript = DecryptStringFromBytes(encrypted, keybytes, iv);
             return decriptedFromJavascript;
         }
@@ -152,5 +154,10 @@ namespace EncryptAndDecrypt.Controllers
             var encrypted = Convert.FromBase64String("+Ijpt1GDVgM4MqMAQUwf0Q==");
             var decriptedFromJavascript = DecryptStringFromBytes(encrypted, keybytes, iv);
         }
+    }
+
+    public class Data
+    {
+        public string Text { get; set; }
     }
 }
